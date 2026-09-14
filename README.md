@@ -379,3 +379,9 @@ authorized operational data.
 - scenario generation, simulation, and out-of-sample stress testing
 - analytic gradients and numerical verification
 - Python, NumPy, SciPy, Pandas, and Matplotlib
+
+## Author
+
+**Nghia Nguyen-Trung**  
+Ph.D. Candidate in Statistics and Operations Research  
+University of North Carolina at Chapel Hill
