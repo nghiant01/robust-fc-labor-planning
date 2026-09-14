@@ -26,50 +26,50 @@ Let $x_{jt}$ be workers assigned to process $j$ in hour $t$, $d^{(s)}_{jt}$
 be required units in scenario $s$, and $r_j$ be units processed by one worker
 in one hour. Scenario loss is
 
-\[
+$$
 F_s(x)=C_{\mathrm{labor}}(x)+C_{\mathrm{adjust}}(x)
        +C_{\mathrm{shortage}}^{(s)}(x),
-\]
+$$
 
 where
 
-\[
+$$
 C_{\mathrm{labor}}(x)=\sum_{j,t}c_{jt}x_{jt},
-\]
+$$
 
-\[
+$$
 C_{\mathrm{adjust}}(x)=\gamma\sum_j\sum_{t=2}^{T}
                     (x_{jt}-x_{j,t-1})^2,
-\]
+$$
 
 and
 
-\[
+$$
 C_{\mathrm{shortage}}^{(s)}(x)=\lambda\sum_{j,t}w_j
               [d^{(s)}_{jt}-r_jx_{jt}]_+^2.
-\]
+$$
 
 The squared positive-part penalty is convex and continuously differentiable.
 Its staffing derivative is
 
-\[
+$$
 -2\lambda w_jr_j[d^{(s)}_{jt}-r_jx_{jt}]_+.
-\]
+$$
 
 The feasible set is
 
-\[
+$$
 0\le x_{jt}\le \bar x_{jt},\qquad
 \sum_jx_{jt}\le W_t\quad\text{for every hour }t.
-\]
+$$
 
 The adjustment term represents reassignment friction without adding hard ramp
 constraints to the projection. Projection onto the feasible set separates by
 hour. For a tentative vector $v$, the code finds
 
-\[
+$$
 x_j=\operatorname{clip}(v_j-\theta,0,\bar x_j)
-\]
+$$
 
 with a bisection search for the threshold $\theta$ when the workforce cap binds.
 This is the exact Euclidean projection onto the box-constrained workforce budget.
@@ -87,29 +87,29 @@ staffing array under `result["x"]`.
 
 **Nominal planner**
 
-\[
+$$
 \min_{x\in X}F_{\mathrm{forecast}}(x).
-\]
+$$
 
 **Expected-value planner**
 
-\[
+$$
 \min_{x\in X}\frac{1}{S}\sum_{s=1}^{S}F_s(x).
-\]
+$$
 
 Both smooth convex baselines are solved with SciPy SLSQP and analytic gradients.
 
 **Robust planner**
 
-\[
+$$
 \min_{x\in X}\max_s F_s(x)
 =\min_{x\in X}\max_{p\in\Delta_S}\sum_s p_sF_s(x),
-\]
+$$
 
 where $\Delta_S=\{p\ge0:\mathbf 1^\top p=1\}$. For
 $L(x,p)=\sum_sp_sF_s(x)$, the saddle operator is
 
-\[
+$$
 G(x,p)=
 \begin{bmatrix}
 \nabla_xL(x,p)\\
@@ -120,16 +120,16 @@ G(x,p)=
 \sum_sp_s\nabla F_s(x)\\
 -(F_1(x),\ldots,F_S(x))
 \end{bmatrix}.
-\]
+$$
 
 Because the second block is negative loss, a projected descent step on this
 operator is an ascent step in $p$. The code applies Korpelevich's two-stage
 projected extragradient method:
 
-\[
+$$
 z_{k+1/2}=P(z_k-\eta G(z_k)),\qquad
 z_{k+1}=P(z_k-\eta G(z_{k+1/2})).
-\]
+$$
 
 The primal projection is the hourly capped-simplex projection described above;
 the dual projection uses the standard sorting-and-thresholding Euclidean
@@ -140,15 +140,15 @@ or its solution.
 Convergence history records the worst training loss, normalized primal and dual
 iterate changes, and the natural variational-inequality residual
 
-\[
+$$
 \|z-P(z-G(z))\|.
-\]
+$$
 
 An independent SciPy epigraph solve is included as a numerical reference:
 
-\[
+$$
 \min_{x,q}\ q\quad\text{s.t.}\quad F_s(x)\le q\quad\forall s.
-\]
+$$
 
 It is used for verification, not as the reported robust policy. The implementation
 internally divides the epigraph variable and constraints by `objective_scale=10000`
