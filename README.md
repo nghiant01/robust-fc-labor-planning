@@ -68,7 +68,7 @@ constraints to the projection. Projection onto the feasible set separates by
 hour. For a tentative vector $v$, the code finds
 
 $$
-x_j=\operatorname{clip}(v_j-\theta,0,\bar x_j)
+x_j=\mathrm{clip}(v_j-\theta,0,\bar x_j)
 $$
 
 with a bisection search for the threshold $\theta$ when the workforce cap binds.
@@ -110,10 +110,9 @@ where $\Delta_S=\{p\ge0:\mathbf 1^\top p=1\}$. For
 $L(x,p)=\sum_sp_sF_s(x)$, the saddle operator is
 
 $$
-G(x,p)=
-\begin{bmatrix}
-\nabla_xL(x,p)\\
--\nabla_pL(x,p)
+G(x,p)= \begin{bmatrix}
+\nabla_x L(x,p)\\
+-\nabla_p L(x,p)
 \end{bmatrix}
 =
 \begin{bmatrix}
