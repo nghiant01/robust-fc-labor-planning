@@ -109,17 +109,18 @@ $$
 where $\Delta_S=\{p\ge0:\mathbf 1^\top p=1\}$. For
 $L(x,p)=\sum_sp_sF_s(x)$, the saddle operator is
 
-$$
-G(x,p)= \begin{bmatrix}
-\nabla_x L(x,p)\\
+```math
+G(x,p)=
+\begin{bmatrix}
+\nabla_x L(x,p) \\
 -\nabla_p L(x,p)
 \end{bmatrix}
 =
 \begin{bmatrix}
-\sum_sp_s\nabla F_s(x)\\
--(F_1(x),\ldots,F_S(x))
+\displaystyle \sum_{s=1}^{S} p_s \nabla F_s(x) \\
+-\bigl(F_1(x),\ldots,F_S(x)\bigr)^\top
 \end{bmatrix}.
-$$
+```
 
 Because the second block is negative loss, a projected descent step on this
 operator is an ascent step in $p$. The code applies Korpelevich's two-stage
