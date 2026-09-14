@@ -1,0 +1,8 @@
+__pycache__/
+*.py[cod]
+.venv/
+.runtime_packages/
+.ipynb_checkpoints/
+.idea/
+.vscode/
+Thumbs.db

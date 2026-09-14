@@ -1,0 +1,2 @@
+gradient_check,nominal_status,expected_status,robust_status,robust_iterations,robust_final_residual,extragradient_objective,scipy_reference_status,scipy_reference_objective,relative_objective_gap
+"{'coordinates_checked': 12, 'max_absolute_error': 1.1981618399659055e-06, 'max_relative_error': 4.754558777721435e-09, 'passed': True}",converged,converged,converged,250,1.4008841446274774e-05,73383.22796446182,converged,73383.22504396414,3.9797892328896927e-08
